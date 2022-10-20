@@ -3,16 +3,23 @@
 html,
 ::before,
 ::after {
-	margin: 0;
-	padding: 0;
 	box-sizing: border-box;
-
 	font-size: 62.5%;
 }
 
 body {
+	margin: 0;
+	padding: 0;
+
+	background-color: #e7e7e7;
+
 	font-size: 1.6rem;
 	font-family: 'Poppins', sans-serif;
+}
+
+.undo-redo-buttons {
+	display: flex;
+	gap: 10rem;
 }
 
 .counter-container {
@@ -23,5 +30,27 @@ body {
 }
 
 .count {
+	margin-right: 1.5rem;
+	margin-left: 1.5rem;
 	font-size: 3rem;
+}
+
+.counter-buttons {
+	display: flex;
+	align-items: center;
+
+	gap: 4rem;
+}
+
+.btn {
+	padding: 1.5rem 3rem;
+	font-size: 1.8rem;
+	font-family: inherit;
+	font-weight: bold;
+
+	background-color: #fff;
+	border: 1px black solid;
+}
+
+.counter-button {
 }
