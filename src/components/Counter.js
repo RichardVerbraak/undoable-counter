@@ -1,19 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
+import countReducer from '../countReducer'
 
 const Counter = () => {
-	const [count, setCount] = useState(0)
-	const [history, setHistory] = useState([])
+	const [state, dispatch] = useReducer(countReducer, { count: 0, history: [] })
 
 	const handleDecrement = (e) => {
 		const number = Number(e.target.innerText.split('').slice(1).join(''))
 
-		setCount(count - number)
+		dispatch({
+			type: 'DECREMENT',
+			payload: number,
+		})
 	}
 
 	const handleIncrement = (e) => {
 		const number = Number(e.target.innerText.split('').slice(1).join(''))
 
-		setCount(count + number)
+		dispatch({
+			type: 'INCREMENT',
+			payload: number,
+		})
 	}
 
 	const undo = () => {}
@@ -59,7 +65,7 @@ const Counter = () => {
 					-1
 				</button>
 
-				<p className='count'>{count}</p>
+				<p className='count'>{state.count}</p>
 
 				<button
 					className='btn'
