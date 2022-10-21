@@ -6,7 +6,7 @@ const countReducer = (state, action) => {
 				count: state.count + action.payload,
 				history: [
 					...state.history,
-					{ action: 'INCREMENT', number: action.payload },
+					{ type: 'INCREMENT', number: action.payload },
 				],
 			}
 
@@ -16,14 +16,18 @@ const countReducer = (state, action) => {
 				count: state.count - action.payload,
 				history: [
 					...state.history,
-					{ action: 'DECREMENT', number: action.payload },
+					{ type: 'DECREMENT', number: action.payload },
 				],
 			}
 
 		case 'UNDO':
+			// Payload is the last item in the array
+			// Count is set to the last action but reverted (increment becomes count minus X)
+			// History filters out last item
+			// undoHistory is the state that keeps track of the last undo action
 			return {
 				count: action.payload
-					? action.payload.action === 'INCREMENT'
+					? action.payload.type === 'INCREMENT'
 						? state.count - action.payload.number
 						: state.count + action.payload.number
 					: state.count,
@@ -35,9 +39,13 @@ const countReducer = (state, action) => {
 			}
 
 		case 'REDO':
+			// Redo is the opposite of Undo
+			// Count is also the same but again, reverted
+			// History gets the action that was stored in undoHistory
+			// undoHistory filters out the last undo action
 			return {
 				count: action.payload
-					? action.payload.action === 'INCREMENT'
+					? action.payload.type === 'INCREMENT'
 						? state.count + action.payload.number
 						: state.count - action.payload.number
 					: state.count,
