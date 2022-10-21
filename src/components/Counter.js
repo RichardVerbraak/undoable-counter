@@ -1,8 +1,12 @@
-import React, { useEffect, useReducer, useState } from 'react'
+import React, { useReducer } from 'react'
 import countReducer from '../countReducer'
 
 const Counter = () => {
-	const [state, dispatch] = useReducer(countReducer, { count: 0, history: [] })
+	const [state, dispatch] = useReducer(countReducer, {
+		count: 0,
+		history: [],
+		undoHistory: [],
+	})
 
 	const handleDecrement = (e) => {
 		const number = Number(e.target.innerText.split('').slice(1).join(''))
@@ -22,9 +26,27 @@ const Counter = () => {
 		})
 	}
 
-	const undo = () => {}
+	const undo = () => {
+		const removed = state.history.slice(-1)[0]
 
-	const redo = () => {}
+		if (removed !== undefined) {
+			dispatch({
+				type: 'UNDO',
+				payload: removed,
+			})
+		}
+	}
+
+	const redo = () => {
+		const removed = state.undoHistory.slice(-1)[0]
+
+		if (removed !== undefined) {
+			dispatch({
+				type: 'REDO',
+				payload: removed,
+			})
+		}
+	}
 
 	return (
 		<div className='counter-container'>
@@ -33,10 +55,21 @@ const Counter = () => {
 			</header>
 
 			<div className='undo-redo-buttons'>
-				<button onClick={undo} className='btn'>
+				<button
+					onClick={() => {
+						undo()
+					}}
+					className='btn'
+				>
 					Undo
 				</button>
-				<button className='btn'>Redo</button>
+				<button
+					disabled={state.undoHistory.length === 0}
+					onClick={redo}
+					className='btn'
+				>
+					Redo
+				</button>
 			</div>
 
 			<div className='counter-buttons'>
