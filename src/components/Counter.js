@@ -1,5 +1,6 @@
-import React, { useEffect, useReducer } from 'react'
+import React, { useReducer } from 'react'
 import countReducer from '../countReducer'
+import History from './History'
 
 const Counter = () => {
 	const [state, dispatch] = useReducer(countReducer, {
@@ -127,27 +128,7 @@ const Counter = () => {
 					</button>
 				</div>
 			</div>
-
-			<div className='history-section'>
-				<header>
-					<h3 className='history-title'>History</h3>
-				</header>
-				<div className='history-container'>
-					{state.history.map((action, index) => {
-						return (
-							<div className='history__feed'>
-								<p key={index} className='history__action'>
-									{action.type === 'DECREMENT' ? '-' : '+'} {action.number}{' '}
-								</p>
-
-								<p className='history__count'>
-									{action.prevCount} &rarr; {state.count}
-								</p>
-							</div>
-						)
-					})}
-				</div>
-			</div>
+			<History history={state.history} count={state.count} />
 		</div>
 	)
 }
