@@ -6,7 +6,7 @@ const countReducer = (state, action) => {
 				count: state.count + action.payload,
 				history: [
 					...state.history,
-					{ type: 'INCREMENT', number: action.payload },
+					{ type: 'INCREMENT', number: action.payload, prevCount: state.count },
 				],
 			}
 
@@ -16,7 +16,7 @@ const countReducer = (state, action) => {
 				count: state.count - action.payload,
 				history: [
 					...state.history,
-					{ type: 'DECREMENT', number: action.payload },
+					{ type: 'DECREMENT', number: action.payload, prevCount: state.count },
 				],
 			}
 
