@@ -4,6 +4,8 @@ import countReducer from '../countReducer'
 import Counter from './Counter'
 import History from './History'
 
+// If the component would've gotten a bit more complex the entire Reducer and all of it's dispatch actions could be
+// moved into it's own hook for better readability
 const CounterContainer = () => {
 	const [state, dispatch] = useReducer(countReducer, {
 		count: 0,

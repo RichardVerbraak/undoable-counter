@@ -73,6 +73,7 @@ body {
 	padding: 5rem;
 }
 
+/* Column reverse allows for the latest History to be shown on top */
 .history-container {
 	display: flex;
 	flex-direction: column-reverse;
